@@ -90,5 +90,23 @@ jobs:
       - name: Run integration tests
         run: pytest -m integration
 
+      - name: Verify database schema
+        run: |
+          python - <<'PY'
+          from sqlalchemy import create_engine, inspect
+
+          engine = create_engine("postgresql://postgres:postgres@localhost:5432/knowledgeops")
+          inspector = inspect(engine)
+          tables = inspector.get_table_names()
+
+          print("Tables in database:", tables)
+
+          required_tables = ["documents", "document_chunks", "chat_logs", "chat_feedback"]
+          missing = [table for table in required_tables if table not in tables]
+
+          if missing:
+              raise SystemExit(f"Missing tables: {missing}")
+          PY
+
       - name: Run coverage gate
         run: pytest --cov=app --cov-report=term-missing --cov-fail-under=30
