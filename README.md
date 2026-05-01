@@ -17,8 +17,10 @@ A production-style GenAI backend system for document ingestion, vector search, a
 
 
 ## 🏗️ Architecture Overview
-User → FastAPI → RAG Pipeline → Qdrant (Vector DB)
- ↓
+User → FastAPI → RAG Pipeline → Qdrant (Vector DB)  
+
+ ↓  
+ 
  PostgreSQL (Metadata)
 
 Detailed architecture:
@@ -38,26 +40,41 @@ Open:
 http://localhost:8000/docs
 
 ## 📡 API Highlights
-POST /api/v1/ingest → Upload & index documents
-POST /api/v1/chat → Ask questions (RAG)
-GET /api/v1/documents → List documents
-GET /api/v1/chat-logs → View chat history
-POST /api/v1/chat-feedback → Submit feedback
+POST /api/v1/ingest → Upload & index documents  
+
+POST /api/v1/chat → Ask questions (RAG)  
+
+GET /api/v1/documents → List documents  
+
+GET /api/v1/chat-logs → View chat history  
+
+POST /api/v1/chat-feedback → Submit feedback  
+
 
 Full reference:
 docs/API_REFERENCE.md
 
 ## 🤖 RAG Flow
-User Question
-   ↓
-Embedding (OpenAI)
-   ↓
-Vector Search (Qdrant)
-   ↓
-Top-K Chunks Retrieved
-   ↓
-LLM Prompt Construction
-   ↓
+User Question  
+
+   ↓  
+
+Embedding (OpenAI)  
+
+   ↓  
+
+Vector Search (Qdrant)  
+
+   ↓  
+
+Top-K Chunks Retrieved  
+
+   ↓  
+
+LLM Prompt Construction  
+
+   ↓  
+
 Answer + Sources + Confidence
 
 ## 📄 Document Ingestion Flow
