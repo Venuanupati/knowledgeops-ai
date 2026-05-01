@@ -2,7 +2,6 @@
 
 A production-style GenAI backend system for document ingestion, vector search, and Retrieval-Augmented Generation (RAG) with source citations, confidence scoring, and feedback loops.
 
----
 
 ## 🔥 Key Features
 - 📄 Document ingestion (PDF, TXT, DOCX)
@@ -16,7 +15,6 @@ A production-style GenAI backend system for document ingestion, vector search, a
 - 🧪 Full test suite (pytest + coverage + CI)
 - 🛠️ Alembic migrations + DB lifecycle management
 
----
 
 ## 🏗️ Architecture Overview
 User → FastAPI → RAG Pipeline → Qdrant (Vector DB)
@@ -26,7 +24,6 @@ User → FastAPI → RAG Pipeline → Qdrant (Vector DB)
 Detailed architecture:
 docs/ARCHITECTURE.md
 
----
 
 ## ⚡ Quick Start
 git clone <your-repo>
