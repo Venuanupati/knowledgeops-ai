@@ -78,17 +78,11 @@ jobs:
       - name: Check formatting
         run: ruff format . --check
 
-      - name: Run unit tests
-        run: pytest -m unit
-
       - name: Check Alembic current revision
         run: python -m alembic current
 
       - name: Run Alembic migrations
         run: python -m alembic upgrade head
-
-      - name: Run integration tests
-        run: pytest -m integration
 
       - name: Verify database schema
         run: |
@@ -107,6 +101,12 @@ jobs:
           if missing:
               raise SystemExit(f"Missing tables: {missing}")
           PY
+
+      - name: Run unit tests
+        run: pytest -m unit
+
+      - name: Run integration tests
+        run: pytest -m integration
 
       - name: Run coverage gate
         run: pytest --cov=app --cov-report=term-missing --cov-fail-under=30
