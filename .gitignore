@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+.venv/
+venv/
+env/
+
+# Environment variables
+.env
+.env.*
+apps/api/.env
+apps/api/.env.*
+
+# Data files
+data/raw/*
+data/processed/*
+
+# Keep folder structure
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# Docker / OS
+.docker/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Database backups
+backup.sql
+*.sql
+
+# IDE
+.vscode/
+.idea/
+
+# Alembic / migrations cache
+*.sqlite3

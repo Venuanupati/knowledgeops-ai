@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+  api:
+    build:
+      context: ../../apps/api
+    container_name: knowledgeops_api
+    env_file:
+      - ../../.env
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../../data:/app/data
+    depends_on:
+      - postgres
+      - qdrant
+
+  postgres:
+    image: postgres:16
+    container_name: knowledgeops_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: knowledgeops
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: knowledgeops_qdrant
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant_data:/qdrant/storage
+
+volumes:
+  postgres_data:
+  qdrant_data:
