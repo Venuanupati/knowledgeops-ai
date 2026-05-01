@@ -18,12 +18,10 @@ A production-style GenAI backend system for document ingestion, vector search, a
 
 ## 🏗️ Architecture Overview
 User → FastAPI → RAG Pipeline → Qdrant (Vector DB)\
-
  ↓\
-
  PostgreSQL (Metadata)
 
-Detailed architecture:\
+### Detailed architecture:
 
 docs/ARCHITECTURE.md
 
