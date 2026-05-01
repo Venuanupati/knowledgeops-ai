@@ -1,164 +1,124 @@
-# KnowledgeOps AI
+# KnowledgeOps AI 🚀
 
-KnowledgeOps AI is a production-style GenAI knowledge assistant that can ingest documents, generate embeddings, store them in a vector database, and answer questions using Retrieval-Augmented Generation.
+A production-style GenAI backend system for document ingestion, vector search, and Retrieval-Augmented Generation (RAG) with source citations, confidence scoring, and feedback loops.
 
-## Current Features
+---
 
-- FastAPI backend
-- Docker-based local setup
-- PostgreSQL metadata storage
-- Qdrant vector database
-- Document upload and ingestion
-- PDF, TXT, and DOCX parsing
-- Text chunking
-- OpenAI embeddings
-- RAG-based chat endpoint
-- Source citations
-- Chat history storage
-- Feedback collection
-- Document deletion and re-indexing
-- Health checks for Postgres and Qdrant
-- Pagination and filtering for admin APIs
+## 🔥 Key Features
+- 📄 Document ingestion (PDF, TXT, DOCX)
+- ✂️ Intelligent text chunking
+- 🔎 Vector search using Qdrant
+- 🤖 RAG-based question answering
+- 📚 Source citations with confidence scoring
+- 🧠 Feedback loop for response evaluation
+- 📊 Admin APIs (documents, chats, feedback)
+- ⚙️ Production-ready backend (FastAPI + PostgreSQL)
+- 🧪 Full test suite (pytest + coverage + CI)
+- 🛠️ Alembic migrations + DB lifecycle management
 
-## Tech Stack
+---
 
-- Python
-- FastAPI
-- PostgreSQL
-- Qdrant
-- OpenAI API
-- Docker Compose
+## 🏗️ Architecture Overview
+User → FastAPI → RAG Pipeline → Qdrant (Vector DB)
+ ↓
+ PostgreSQL (Metadata)
 
-## Run Locally
-
-docker compose -f infra/docker/docker-compose.yml up --build
-
-## Database Migrations
-
-This project uses Alembic for database migrations.
-
-Check current migration:
-
-make migrate-current
-
-Create a new migration:
-
-make migrate-new msg="your migration message"
-
-Apply migrations:
-
-make migrate-up
-
-Note: For local Alembic commands, apps/api/.env may use localhost for DATABASE_URL, while Docker uses postgres
-
-### Local Alembic Environment
-
-For local Alembic commands, create a local environment file inside `apps/api`:
-
-cp ../../.env .env
-
-Then update the local database URL in apps/api/.env:
-
-DATABASE_URL=postgresql://postgres:postgres@localhost:5432/knowledgeops
-POSTGRES_HOST=localhost
-
-Docker services should continue using the root .env, where:
-
-DATABASE_URL=postgresql://postgres:postgres@postgres:5432/knowledgeops
-POSTGRES_HOST=postgres
-
-The file apps/api/.env is ignored by Git.
-
-## API Docs
-
-After starting the app, open:
-
-http://localhost:8000/docs
-
-## API Versioning
-
-All application endpoints are available under:
-
-/api/v1
-
-Examples:
-GET /api/v1/health
-POST /api/v1/ingest
-POST /api/v1/chat
-GET /api/v1/documents
-
-The root endpoint remains:
-
-GET /
-
-## Health Check
-
-http://localhost:8000/health
-
-## Environment Variables
-
-Create a .env file in the project root and include:
-
-APP_NAME=knowledgeops-ai
-APP_ENV=local
-APP_HOST=0.0.0.0
-APP_PORT=8000
-LOG_LEVEL=INFO
-
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres
-POSTGRES_DB=knowledgeops
-POSTGRES_HOST=postgres
-POSTGRES_PORT=5432
-DATABASE_URL=postgresql://postgres:postgres@postgres:5432/knowledgeops
-
-OPENAI_API_KEY=your_openai_api_key_here
-OPENAI_EMBEDDING_MODEL=text-embedding-3-small
-OPENAI_CHAT_MODEL=gpt-4.1-mini
-
-QDRANT_HOST=qdrant
-QDRANT_PORT=6333
-QDRANT_COLLECTION=knowledge_chunks
-
-TOP_K=5
-MIN_TOP_K=1
-MAX_TOP_K=10
-MAX_UPLOAD_SIZE_MB=10
-MIN_QUESTION_LENGTH=3
-MAX_QUESTION_LENGTH=2000
-
-Copy the example environment file:
-
-cp .env.example .env
-
-Then update OPENAI_API_KEY in .env.
-
-## Architecture
-
-See the full architecture document:
-
+Detailed architecture:
 docs/ARCHITECTURE.md
 
-## API Reference
+---
 
-See the API reference document:
+## ⚡ Quick Start
+git clone <your-repo>
+cd knowledgeops-ai
 
+cp .env.example .env
+--> Add your OPENAI_API_KEY
+
+make up
+
+Open:
+http://localhost:8000/docs
+
+## 📡 API Highlights
+POST /api/v1/ingest → Upload & index documents
+POST /api/v1/chat → Ask questions (RAG)
+GET /api/v1/documents → List documents
+GET /api/v1/chat-logs → View chat history
+POST /api/v1/chat-feedback → Submit feedback
+
+Full reference:
 docs/API_REFERENCE.md
 
-## Roadmap
+## 🤖 RAG Flow
+User Question
+   ↓
+Embedding (OpenAI)
+   ↓
+Vector Search (Qdrant)
+   ↓
+Top-K Chunks Retrieved
+   ↓
+LLM Prompt Construction
+   ↓
+Answer + Sources + Confidence
 
-See the project roadmap:
+## 📄 Document Ingestion Flow
+Upload → Validate → Extract → Chunk → Embed → Store → Index
 
-docs/ROADMAP.md
+## 🧪 Testing
+Run all tests:
+make test-api
 
-## Demo Script
+Run unit tests:
+make test-unit
 
-See the walkthrough demo script
+Run integration tests:
+make test-integration
 
-docs/DEMO_SCRIPT.md
+Run coverage:
+make test-api-cov
 
-## Project Status
+## 🛠️ Tech Stack
+FastAPI
+PostgreSQL
+Qdrant (Vector DB)
+OpenAI (Embeddings + LLM)
+Docker
+Alembic
+Pytest
+Ruff
+GitHub Actions
 
-This project is currently under active development.
+## 🗂️ Project Docs
+Architecture → docs/ARCHITECTURE.md
+API Reference → docs/API_REFERENCE.md
+Roadmap → docs/ROADMAP.md
+Demo Script → docs/DEMO_SCRIPT.md
 
+## 💾 Database Migrations
+make migrate-current
+make migrate-new msg="your migration"
+make migrate-up
 
+## 🧠 Why This Project Matters
+This project demonstrates:
+End-to-end GenAI system design
+Production-style backend engineering
+RAG pipeline implementation
+Vector database usage
+API design + observability
+Testing + CI/CD practices
+
+## 🚀 Future Improvements
+Hybrid search (BM25 + vector)
+Reranking models
+Frontend UI (React)
+Async ingestion pipeline
+Evaluation framework (MLflow)
+
+## 📸 Demo
+(Will add Snaps in comming days)
+
+# 📌 Status
+Currently under active development
